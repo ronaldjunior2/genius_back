@@ -79,6 +79,18 @@ export class App {
           room.startGame();
           this.io.to(roomId).emit('startTurn', room.game);
         }
+        this.io.to(roomId).emit('roomInfos', room);
+      });
+
+      socket.on('restartGame', (roomId) => {
+        const room = this.rooms.find((r) => r.id === roomId);
+        if (room.ownerId === socket.id) {
+          room.game.restartGame(room.players);
+
+          this.io.to(roomId).emit('startTurn', room.game);
+        }
+        this.io.to(roomId).emit('roomInfos', room);
+        this.io.to(roomId).emit('resetPage', room);
       });
 
       socket.on('color', ({ roomId, color }) => {
@@ -106,6 +118,7 @@ export class App {
             }
           }
         }
+        this.io.to(roomId).emit('roomInfos', room);
       });
     });
   }

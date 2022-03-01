@@ -9,7 +9,6 @@ export class Room {
   game: Game;
 
   constructor(public name: string, public id: string, public ownerId: string, playerName: string) {
-    console.log('MEU NOME', playerName);
     this.players.push(new Player(playerName, ownerId));
   }
 

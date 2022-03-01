@@ -12,7 +12,8 @@ export class Game {
   private readonly geniusColors = ['green', 'yellow', 'blue', 'red'];
 
   constructor(private readonly starterPlayers: Player[]) {
-    this.currentPlayers = this.starterPlayers;
+    const intialPlayers = [...starterPlayers];
+    this.currentPlayers = intialPlayers;
   }
 
   addColorSequence(): string[] {
@@ -52,6 +53,15 @@ export class Game {
       this.colorSequence = [];
       this.addColorSequence();
     }
+  }
+
+  restartGame(players: Player[]): void {
+    const intialPlayers = [...players];
+    this.currentPlayers = intialPlayers;
+    this.playerAswerSequence = [];
+    this.colorSequence = [];
+    this.chooseRandomPlayer();
+    this.addColorSequence();
   }
 
   aswerIsRight(color: string): boolean {
